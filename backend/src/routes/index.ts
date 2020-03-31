@@ -2,10 +2,10 @@ import { Router } from "express";
 import UserController from "../app/controllers/UserController";
 const routes = Router();
 
-routes.get("/", UserController.index);
-routes.post("/", UserController.store);
-routes.put("/:id", UserController.update);
-routes.delete("/:id", UserController.delete);
+routes.get("/user", UserController.index);
+routes.post("/user", UserController.store);
+routes.put("/user/:id", UserController.update);
+routes.delete("/user/:id", UserController.delete);
 
 
 export default routes;
