@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { User } from "../entity/User";
+import { promises } from "dns";
 
 class UserController {
   public async index(req: Request, res: Response): Promise<Response> {
@@ -21,6 +22,22 @@ class UserController {
     
     const user = getRepository(User).create(req.body)
     await getRepository(User).save(user)
+    return res.json(user)
+  }
+
+  public async update(req: Request, res: Response): Promise<Response> {
+    const user = await getRepository(User).findOne(req.params.id)
+    if (!user) {
+      return res.json({error: "User does not exists!"})
+    }
+    getRepository(User).merge(user, req.body)
+    const result = await getRepository(User).save(user)
+    return res.json(result)
+  }
+
+  public async delete(req: Request, res: Response): Promise <Response> {
+    const user = await getRepository(User).delete(req.params.id)
+
     return res.json(user)
   }
 }
