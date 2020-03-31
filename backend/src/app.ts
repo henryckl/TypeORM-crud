@@ -14,6 +14,7 @@ class App {
 
   private middleware(): void {
     this.express.use(express.json());
+    
   }
 
   private routes(): void {
