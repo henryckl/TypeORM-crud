@@ -1,7 +1,9 @@
 import express, { Application } from "express";
 import routes from "./routes";
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+//import { createConnection } from "typeorm";
+import { databaseConnection } from "./utils/databaseconnection"
+
 class App {
   public express: Application;
 
@@ -9,10 +11,11 @@ class App {
     this.express = express();
     this.middleware();
     this.routes();
-    createConnection();
+    databaseConnection()
+    //createConnection();
   }
 
-  private middleware(): void {
+  private  middleware(): void {
     this.express.use(express.json());
     
   }
